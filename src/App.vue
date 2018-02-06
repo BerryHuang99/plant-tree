@@ -3,7 +3,7 @@
 
     <preload :imgUrlArr="imgUrlArr"/>
     <div class="plant-tree" :class="['bg-' + index]">
-
+      
       <avatar :user="user" :index="index" :treeName="treeName"/>
 
       <div class="clearfix"></div>
@@ -16,7 +16,9 @@
     </div>
 
     <div class="jump">
-      <button :class="{'button-active': buttonActive}" @click="clickButton">查看排行榜</button>
+      <a href="http://www.127ad.com/app/index.php?i=6&c=entry&do=Index&m=jiankang_tree&op=paihang">
+        <button :class="{'button-active': buttonActive}" @click="clickButton">查看排行榜</button>
+      </a>
     </div>
 
     <prop :isClose="propClose" :power="user.power" :props="props" @closeProp="closeProp" @plusWater="plusWater" @plusFertilizer="plusFertilizer" @plusSun="plusSun"/>
@@ -29,6 +31,9 @@ import Avatar from "./components/Avatar"
 import Tree from './components/Tree'
 import ToolBar from "./components/ToolBar"
 import Prop from './components/Prop'
+import axios from 'axios'
+
+
 
 export default {
   name: 'app',
@@ -38,65 +43,137 @@ export default {
     // 比如 
     // var jsonData;
     // var request = new XMLHttpRequest();
-    // request.open('POST', JSON_FILE, true);
-    // request.send();
-    // if (request.readyState === 4) {
-    //   if (requste.statue === 200) {
-    //     jsonDate = request.responseText;
+    // request.onreadystatechange = function () {
+    //   if (request.readyState === 4 && request.status === 200) {
+    //     jsonData = request.responseText;
+    //     var json = JSON.parse(jsonData);
+    //     this.user.name = json.user.name;
+    //     this.user.level = json.user.level;
+    //     this.user.weight = json.user.weight;
+    //     this.user.avatar = json.user.avatar;
+    //     this.user.waterTime = json.user.waterTime;
+    //     this.user.fertilizerTime = json.user.fertilizerTime;
+    //     this.user.sunTime = json.user.sunTime;
+    //     this.user.power = json.user.power;
+    //     this.props.water = json.props.water;
+    //     this.props.fertilizer = json.props.fertilizer;
+    //     this.props.sun = json.props.sun;
+    //     this.props.propMax = json.props.propMax;
+    //     this.props.useMax = json.props.useMax;
+    //     this.dialog = json.dialog;
+    //     this.treeName = json.treeName;
+    //     this.imgUrlArr.push(json.user.avatar);
     //   } else {
-    //     aletr("发生错误");
+    //     alert("发生错误");
     //   }
-    // }
+    // };
+    // request.open('GET', 'http://app.127ad.com/app/index.php?i=4&c=entry&do=Index&m=jiankang_tree&op=api', true);
+    // request.send();
+    
     // 将数据传递给json变量
-    // var json = JSON.parse(jsonDate);
 
-    var json = {
-    "user": {
-        "name": "name",
-        "level": "透亮会员",
-        "weight": 1000,
-        "avatar": "static/img/avatar.png",
-        "waterTime": 0,
-        "fertilizerTime": 0,
-        "sunTime": 0,
-        "power": 200
-    },
-    "props": {
-        "water": 3,
-        "fertilizer": 2,
-        "sun": 1,
-        "propMax": 5,
-        "useMax": 5
-    },
-    "dialog": [
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”",
-            "种下希望，集树成“森”"
-    ],
-    "treeName": [
-            "参天大树",
-            "参天大树",
-            "参天大树",
-            "参天大树",
-            "参天大树",
-            "参天大树",
-            "参天大树",
-            "参天大树",
-            "参天大树",
-            "参天大树",
-            "参天大树"
-    ]
-  };
 
-    // 数据传递区
+
+/*  测试数据  */
+  //   var json = {
+  //   "user": {
+  //       "name": "name",
+  //       "level": "透亮会员",
+  //       "weight": 1000,
+  //       "avatar": "static/img/avatar.png",
+  //       "waterTime": 0,
+  //       "fertilizerTime": 0,
+  //       "sunTime": 0,
+  //       "power": 200
+  //   },
+  //   "props": {
+  //       "water": 3,
+  //       "fertilizer": 2,
+  //       "sun": 1,
+  //       "propMax": 5,
+  //       "useMax": 5
+  //   },
+  //   "dialog": [
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”",
+  //           "种下希望，集树成“森”"
+  //   ],
+  //   "treeName": [
+  //           "参天大树",
+  //           "参天大树",
+  //           "参天大树",
+  //           "参天大树",
+  //           "参天大树",
+  //           "参天大树",
+  //           "参天大树",
+  //           "参天大树",
+  //           "参天大树",
+  //           "参天大树",
+  //           "参天大树"
+  //   ]
+  // };
+
+    // axios.post('http://app.127ad.com/app/index.php?i=4&c=entry&do=Index&m=jiankang_tree&op=api')
+    // .then(res => {
+    //   var json = res.data;
+    //   this.user.name = json.user.name;
+    //   this.user.level = json.user.level;
+    //   this.user.weight = json.user.weight;
+    //   this.user.avatar = json.user.avatar;
+    //   this.user.waterTime = json.user.waterTime;
+    //   this.user.fertilizerTime = json.user.fertilizerTime;
+    //   this.user.sunTime = json.user.sunTime;
+    //   this.user.power = json.user.power;
+    //   this.props.water = json.props.water;
+    //   this.props.fertilizer = json.props.fertilizer;
+    //   this.props.sun = json.props.sun;
+    //   this.props.propMax = json.props.propMax;
+    //   this.props.useMax = json.props.useMax;
+    //   this.dialog = json.dialog;
+    //   this.treeName = json.treeName;
+    //   this.imgUrlArr.push(json.user.avatar);
+    // })
+    // .catch(error => {
+    //   alert(error);
+    // });
+
+    // fetch('http://app.127ad.com/app/index.php?i=4&c=entry&do=Index&m=jiankang_tree&op=api')
+    // .then(
+    //   res => {
+    //     return res.json();
+    //   }
+    // ).then(
+    //   json => {
+    //     this.user.name = json.user.name;
+    //     this.user.level = json.user.level;
+    //     this.user.weight = json.user.weight;
+    //     this.user.avatar = json.user.avatar;
+    //     this.user.waterTime = json.user.waterTime;
+    //     this.user.fertilizerTime = json.user.fertilizerTime;
+    //     this.user.sunTime = json.user.sunTime;
+    //     this.user.power = json.user.power;
+    //     this.props.water = json.props.water;
+    //     this.props.fertilizer = json.props.fertilizer;
+    //     this.props.sun = json.props.sun;
+    //     this.props.propMax = json.props.propMax;
+    //     this.props.useMax = json.props.useMax;
+    //     this.dialog = json.dialog;
+    //     this.treeName = json.treeName;
+    //     this.imgUrlArr.push(json.user.avatar);
+    //   }
+    // ).catch(err => { 
+    //   alert('error:' + err )
+    //   });
+
+    var json = window.config;
     this.user.name = json.user.name;
     this.user.level = json.user.level;
     this.user.weight = json.user.weight;
@@ -112,7 +189,9 @@ export default {
     this.props.useMax = json.props.useMax;
     this.dialog = json.dialog;
     this.treeName = json.treeName;
+    this.returnUrl = json.returnUrl;
     this.imgUrlArr.push(json.user.avatar);
+
   },
   components: {
     Preload, Avatar, Tree, ToolBar, Prop,
@@ -140,69 +219,61 @@ export default {
       propClose: true,
       buttonActive: false,
       imgUrlArr: [
-        '/src/assets/bg_01.png',
-        '/src/assets/bg_02.png',
-        '/src/assets/bg_03.png',
-        '/src/assets/bg_04.png',
-        '/src/assets/bg_05.png',
-        '/src/assets/bg_06.png',
-        '/src/assets/bg_07.png',
-        '/src/assets/bg_08.png',
-        '/src/assets/bg_09.png',
-        '/src/assets/bg_10.png',
-        '/src/assets/bg_11.png',
-        '/src/assets/dialog-1.png',
-        '/src/assets/dialog-2.png',
-        '/src/assets/dialog-3.png',
-        '/src/assets/fertilizer.png',
-        '/src/assets/fertilizing.png',
-        '/src/assets/raider.png',
-        '/src/assets/shadow.png',
-        '/src/assets/shine.png',
-        '/src/assets/sun.png',
-        '/src/assets/tool.png',
-        '/src/assets/watering.png',
-        '/src/assets/water.png',
-        '/src/assets/tree_low07_00.png',
-        '/src/assets/tree_low02_00.png', 
-        '/src/assets/tree_low03_00.png', 
-        '/src/assets/tree_low04_00.png',
-        '/src/assets/tree_low05_00.png',
-        '/src/assets/tree_low06_00.png',
-        '/src/assets/tree_low07_00.png',
-        '/src/assets/tree_low08_00.png',
-        '/src/assets/tree_low09_00.png',
-        '/src/assets/tree_low10_00.png',
-        '/src/assets/tree_low11_00.png'
+        'static/img/bg_01.png',
+        'static/img/bg_02.png',
+        'static/img/bg_03.png',
+        'static/img/bg_04.png',
+        'static/img/bg_05.png',
+        'static/img/bg_06.png',
+        'static/img/bg_07.png',
+        'static/img/bg_08.png',
+        'static/img/bg_09.png',
+        'static/img/bg_10.png',
+        'static/img/bg_11.png',
+        'static/img/tree_low07_00.png',
+        'static/img/tree_low02_00.png', 
+        'static/img/tree_low03_00.png', 
+        'static/img/tree_low04_00.png',
+        'static/img/tree_low05_00.png',
+        'static/img/tree_low06_00.png',
+        'static/img/tree_low07_00.png',
+        'static/img/tree_low08_00.png',
+        'static/img/tree_low09_00.png',
+        'static/img/tree_low10_00.png',
+        'static/img/tree_low11_00.png'
       ],
-      tree: ['/src/assets/tree_low01_00.png',
-              '/src/assets/tree_low02_00.png', 
-              '/src/assets/tree_low03_00.png', 
-              '/src/assets/tree_low04_00.png',
-              '/src/assets/tree_low05_00.png',
-              '/src/assets/tree_low06_00.png',
-              '/src/assets/tree_low07_00.png',
-              '/src/assets/tree_low08_00.png',
-              '/src/assets/tree_low09_00.png',
-              '/src/assets/tree_low10_00.png',
-              '/src/assets/tree_low11_00.png'
+      tree: ['static/img/tree_low01_00.png',
+              'static/img/tree_low02_00.png', 
+              'static/img/tree_low03_00.png', 
+              'static/img/tree_low04_00.png',
+              'static/img/tree_low05_00.png',
+              'static/img/tree_low06_00.png',
+              'static/img/tree_low07_00.png',
+              'static/img/tree_low08_00.png',
+              'static/img/tree_low09_00.png',
+              'static/img/tree_low10_00.png',
+              'static/img/tree_low11_00.png'
       ],
       dialog: '',
-      treeName: '', 
+      treeName: '',
+      returnUrl: ''
     }    
   },
   methods: {
     plusWater: function (params) {
       this.props.water += params;
-      this.power -= (params * 20);
+      this.user.power -= (params * 20);
+      this.returnData();
     },
     plusFertilizer: function (params) {
       this.props.fertilizer += params;
-      this.power -= (params * 30);
+      this.user.power -= (params * 30);
+      this.returnData();
     },
     plusSun: function (params) {
       this.props.sun += params;
-      this.power -= (params * 40);
+      this.user.power -= (params * 40);
+      this.returnData();
     },
     openProp: function () {
       this.propClose = false;
@@ -232,6 +303,28 @@ export default {
         this.props.sun--;
         this.user.sunTime++;
       }
+      this.returnData();
+    },
+    returnData: function() {
+      var json = {
+        'user': {
+          'name': this.user.name,
+          'weight': this.user.weight,
+          'waterTime': this.user.waterTime,
+          'fertilizerTime': this.user.fertilizerTime,
+          'sunTime': this.user.sunTime,
+          'power': this.user.power
+        },
+        'props': {
+          'water': this.props.water,
+          'fertilizer': this.props.fertilizer,
+          'sun': this.props.sun
+        }
+      };
+      axios.post(this.returnUrl, json)
+      .catch(err=> {
+        alert(err);
+      });
     }
   },
   computed: { 
@@ -243,7 +336,7 @@ export default {
               index = parseInt((this.user.weight - 1) / 1000 + 1);
           }
           return index;
-      }
+      },
   },
 }
 </script>
@@ -263,7 +356,6 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    overflow: hidden;
 }
 .plant-tree {
   background-repeat: no-repeat;
@@ -274,37 +366,37 @@ export default {
   position: relative;
 }
 .bg-0 {
-  background-image: url('./assets/bg_01.png');
+  background-image: url('/static/img/bg_01.png');
 }
 .bg-1 {
-  background-image: url('./assets/bg_02.png');
+  background-image: url('/static/img/bg_02.png');
 }
 .bg-2 {
-  background-image: url('./assets/bg_03.png');
+  background-image: url('/static/img/bg_03.png');
 }
 .bg-3 {
-  background-image: url('./assets/bg_04.png');
+  background-image: url('/static/img/bg_04.png');
 }
 .bg-4 {
-  background-image: url('./assets/bg_05.png');
+  background-image: url('/static/img/bg_05.png');
 }
 .bg-5 {
-  background-image: url('./assets/bg_06.png');
+  background-image: url('/static/img/bg_06.png');
 }
 .bg-6 {
-  background-image: url('./assets/bg_07.png');
+  background-image: url('/static/img/bg_07.png');
 }
 .bg-7 {
-  background-image: url('./assets/bg_08.png');
+  background-image: url('/static/img/bg_08.png');
 }
 .bg-8 {
-  background-image: url('./assets/bg_09.png');
+  background-image: url('/static/img/bg_09.png');
 }
 .bg-9 {
-  background-image: url('./assets/bg_10.png');
+  background-image: url('/static/img/bg_10.png');
 }
 .bg-10 {
-  background-image: url('./assets/bg_11.png');
+  background-image: url('/static/img/bg_11.png');
 }
 .clearfix {
   clear: both;

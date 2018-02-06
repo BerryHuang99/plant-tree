@@ -2,7 +2,7 @@
     <div class="tree">
         <img :class="[(index < 8) ? 'shadow-1': 'shadow-2']" src="../assets/shadow.png">
         <img class="tree-img" :src="tree[index]"  @click="click()" :class="{'tree-active': isActive}">
-        <div class="dialog" v-text="dialog[index]" :class="[(index < 4)? 'dialog-1': 'dialog-2',{'dialog-active': isActive}]">
+        <div class="dialog" v-text="dialog[content()]" :class="[(index < 4)? 'dialog-1': 'dialog-2',{'dialog-active': isActive}]">
         </div>
     </div>
 </template>
@@ -15,13 +15,16 @@
                 isActive: false,
             }
         },
-        
         methods: {
             click: function () {
                 this.isActive = true;
                 setTimeout(() => {
                     this.isActive = false;
                 }, 3000);
+            },
+            content: function () {
+                var num = Math.random() * this.dialog.length;
+                return parseInt(num, 10);
             }
         },
     }
@@ -84,9 +87,10 @@
         background-image: url("../assets/dialog-3.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
-        padding: 10px 10px 20px 10px;
+        padding: 10px 10px 30px 10px;
         text-align: center;
         display: inline-block;
+        width: 200px;
         opacity: 0;
         z-index: -1;
     }

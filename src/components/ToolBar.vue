@@ -2,7 +2,7 @@
     <div class="tool-bar">
         <div class="tool-left">
             <div class="item">
-                <img class="f-img" src="../assets/raider.png">
+                <a href="http://127ad.com/web/raiders.html"><img class="f-img" src="../assets/raider.png"></a>
                 攻略
             </div>
 
@@ -115,7 +115,7 @@
                     if (this.props.sun < 1) {
                         this.alarm = "道具用完了，再去兑换一点吧！";
                     } else if (this.user.sunTime >= this.props.useMax) {
-                        this.alarm = "今天水份够了，明天再来吧！";
+                        this.alarm = "今天阳光够了，明天再来吧！";
                     }
                     this.dialog = true;
                     setTimeout(() => {

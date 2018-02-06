@@ -137,7 +137,6 @@
                     this.$emit('plusWater', this.water);
                     this.water = 1;
                     this.alarm = '';
-                    this.$emit("closeProp");
                 }
             },
             exchangeFertilizer: function() {
@@ -149,7 +148,6 @@
                     this.$emit('plusFertilizer', this.fertilizer);
                     this.fertilizer = 1;
                     this.alarm = '';
-                    this.$emit("closeProp");
                 }
             },
             exchangeSun: function() {
@@ -161,7 +159,6 @@
                     this.$emit('plusSun', this.sun);
                     this.sun = 1;
                     this.alarm = '';
-                    this.$emit("closeProp");
                 }
             },
         },

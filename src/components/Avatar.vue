@@ -1,6 +1,6 @@
 <template>
     <div class="avatar">
-        <img src="../assets/avatar.png">
+        <img :src="user.avatar">
         <div class="resume">
             <div class="name">
                 {{user.name}}
