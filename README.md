@@ -7,9 +7,7 @@ The app imitates the ant forest from alipay and also implements the preloading. 
 
 ![main](https://github.com/BerryHuang99/plant-tree/blob/master/plant-tree.png)
 ![prop house](https://github.com/BerryHuang99/plant-tree/blob/master/prop-house.png)
-
-## Usage
-
+![water](https://github.com/BerryHuang99/plant-tree/blob/master/water.jpg)
 
 ## Build Setup
 
