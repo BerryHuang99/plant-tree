@@ -2,6 +2,15 @@
 
 > A Vue.js project
 
+## Synopsis
+The app imitates the ant forest from alipay and also implements the preloading. Users can buy props to increase the tree's power as well as click the tree to get some information. Besides, diffrent power interval has different tree and background.
+
+![main](https://github.com/BerryHuang99/plant-tree/blob/master/plant-tree.png)
+![prop house](https://github.com/BerryHuang99/plant-tree/blob/master/prop-house.png)
+
+## Usage
+
+
 ## Build Setup
 
 ``` bash
